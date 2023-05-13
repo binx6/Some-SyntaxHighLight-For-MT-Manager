@@ -1,0 +1,90 @@
+{
+    // @author: binx6
+    // @project: Dart-SyntaxHighLight-For-MT-Manager
+    // @tip: There may be some deficiencies or bugs, but they are sufficient for normal work
+    name: ["Dart", ".dart"]
+    colors: [
+        "bool", #ffff0000, #ffd7a8b7
+        "nil", #F50000, #BC3F3C
+        "number", #000000, #808000
+        "statement", #ff0000ff, #ffac5b97
+		"keyword", #1750EB, #ff4784bc
+		"operator", #ff7200ff, #ffa28ec4
+		"background", #201e8ae8, #1d7da0c9
+	]
+	lineBackground: {match: /[^S]+\.\.[^S]+/, color: "background"}
+	// 推介可再添加一个对于存在:符号行内容的背景色，这可能非常有用，比如为Flutter编写时
+    comment: {startsWith: "//"}
+    comment: {startsWith: "/*", endsWith: "*/"}
+    contains: [
+    {
+    color: "string"
+    start: {match: /'/}
+    end: {match: /(?m)'|$/}
+    contains: [
+    {match: /\\n/, 0: "strEscape"}
+    {builtin: #JAVA_ESCAPED_CHAR#}
+    ]
+        }
+    {
+    color: "string"
+    start: {match: /"/}
+    end: {match: /(?m)"|$/}
+    contains: [
+    {match: /\\n/, 0: "strEscape"}
+    {builtin: #JAVA_ESCAPED_CHAR#}
+    ]
+        }
+    {
+    color: "string"
+    start: {match: /r?'''/}
+    end: {match: /'''/}
+    contains: [
+    {match: /\'/, 0: "strEscape"}
+    {match: /''/, 0: "strEscape"}
+    ]
+        }
+    {
+    color: "string"
+    start: {match: /r?"""/}
+    end: {match: /"""/}
+    contains: [
+    {match: /\"/, 0: "strEscape"}
+    {match: /""/, 0: "strEscape"}
+        ]
+    }
+    // regular expression
+    {
+    color: "meta"
+    start: {match: "(=\\s)/", 1: "default"}
+    end: {match: "(?m)/([img])|$", 1: "operator"}
+    contains: [
+    {match: "\\/", 0: "strEscape"}
+    ]
+        }
+    // 除去大部分其余按个人喜好做了分类，此处仅给出颜色示例，不代表作者观念
+    // 并非完全按照关键字进行划分，有一定原因，这里不赘述(大体按常用常见处理)
+    {builtin: #PROGRAM_NUMBER#}
+    {match: /@\w+/, 0: "meta"}
+    {match: /\_\w+/, 0: "tagName"}
+    {match: /<[^>]+>/, 0: "propKey"}
+    {match: /[.]+(\w+)/, 0: "label"}
+    {match: keywordsToRegex(
+            "abstract assert async await break case catch class const continue covariant"
+            "default deferred do dynamic else enum export extends extension external factory"
+            "final finally for Function get hide if implements import in inout"
+            "interface late library mixin new of on operator out part"
+            "patch required rethrow return set show static switch sync this"
+            "try typedef var void while with yield"
+        ), 0: "statement"}
+    {match: keywordsToRegex("print main Object String List Map Set Quene Stream Promise Future Duration Random Widget Color Text TextSpan TextStyle TextPainter RichText sleep"), 0: "keyword"}
+    {match: keywordsToRegex("bool double int num"), 0: "variable"}
+    {match: keywordsToRegex("true false"), 0: "bool"}
+    {match: keywordsToRegex("super seconds modulus fn log throw e err error Exception catchError"), 0: "number"}
+    // none goto and self, be equivalent substitution
+    {match: keywordsToRegex("Runes Symbols null"), 0: "nil"}
+    {match: keywordsToRegex("as is! is + - * / % ++ -- == != > < >= <= = += -= *= /= ~/= %= <<= >>= &= ^= |= && || ! & | ~ ^ << >> .. . ? : ?? _ $ ( ) [ ] { }"), 0: "operator"}
+    ]
+    codeFormatter: #BUILT_IN_DART_FORMATTER#
+    // codeFormatter: #BUILT_IN_JS_FORMATTER#
+}
