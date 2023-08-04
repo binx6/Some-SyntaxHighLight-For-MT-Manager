@@ -1,0 +1,75 @@
+{
+    // @tip: 常用词，运算符暂时搁置不做，懒
+    // @author: binx6
+    name: ["TypeScript", ".ts", ".tsx"]
+    colors: [
+        "pattern", #FFEDED, #443034
+        "dataType", #4078F2, #0184BB
+    ]
+    comment: {startsWith: "//"}
+    comment: {startsWith: "/*", endsWith: "*/"}
+    lineBackground: {match: /[\t ]*.*use strict.*/, color: "pattern"}    
+    contains: [
+        {
+            color: "string"
+            start: {match: /'/}
+            end: {match: /(?m)'|$/}
+            contains: [
+                {match: /\\\n/, 0: "strEscape"}
+                {builtin: #JAVA_ESCAPED_CHAR#}
+            ]
+        }
+        {
+            color: "string"
+            start: {match: /"/}
+            end: {match: /(?m)"|$/}
+            contains: [
+                {match: /\\\n/, 0: "strEscape"}
+                {builtin: #JAVA_ESCAPED_CHAR#}                
+            ]
+        }
+        {
+            color: "string"
+            start: {match: /`/}
+            end: {match: /`/}
+            contains: [
+                {match: /\\`/, 0: "strEscape"}
+                {builtin: #JAVA_ESCAPED_CHAR#}
+                {match: /\$\{.*?\}/, 0: "dataType"}                
+            ]
+        }
+        // 正则表达式
+        {
+            color: "meta"
+            start: {match: "(=\\s*)/", 1: "default"}
+            end: {match: "(?m)/([img]*)|$", 1: "operator"}
+            contains: [
+                {match: "\\\\/", 0: "strEscape"}
+            ]
+        }
+        {builtin: #JAVA_QUOTED_STRING#}
+        {builtin: #C_QUOTED_STRING#}
+        {number: "10|16|F|E|P"}
+        {match: keywordsToRegex(
+    "as async await constructor declare from get global instanceof is keyof"
+    "module namespace never readonly require set type unique"
+    "export default export import static public private protected implements"
+    "interface extends abstract class function var let const if else for while do switch case"
+    "break continue throw try catch finally return this super true false typeof of"
+    "with collapse exists in out new debugger"
+        ), 0: "keyword"}
+        {match: keywordsToRegex(
+    "boolean number string void null undefined bigint symbol tuple enum any unknown Array object"
+        ), 0: "meta"}
+        {match: keywordsToRegex(
+    "log exit exec error message forEach description pattern required"
+        ), 0: "variable"}
+        {match: keywordsToRegex(
+    "console process colors path fork document"
+        ), 0: "constant"}
+        {match: keywordsToRegex(
+    "Error"
+        ), 0: "error"}
+    ]
+    codeFormatter: #BUILT_IN_JS_FORMATTER#
+}

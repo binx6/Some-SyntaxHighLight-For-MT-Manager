@@ -1,0 +1,37 @@
+{
+    name: ["Go", ".go", ".ʕϖʔ"],
+    // @tip: 推荐应用于夜间模式 -> ️️好看又护眼
+    // @author: binx6
+    colors: [
+        "preprocessor" > "tagName",
+        "operator" > "variable",
+        "function" > "default",
+        "keyword" > "keyword",
+        "identifier" > "keyword2",
+        "string" > "string",
+        "number" > "label",
+        "comment" > "comment",
+        // "background", #201e8ae8, #1d7da0c9,
+    ],
+    // 吐槽一下，拉夸背景线，居然不能联用(就是一次性匹配到多个结果的话没法用，不会生效)
+    // lineBackground: {match: /[.]/ + /{3}/, color: "background"},
+    comment: {startsWith: "//"},
+    comment: {startsWith: "/*", endsWith: "*/"},
+    contains: [
+        {builtin: #QUOTED_STRING#},
+        {builtin: #PROGRAM_NUMBER#},
+        {match: /\`.*\`/, 0: "string"},
+        {match: /\`([^`]*)\`/, 0: "string"},
+        {match: /(?m)^[ \t]*(import)(\s*<.*?>)/, 1: "preprocessor", 2: "string"},
+        {match: /(?m)^[ \t]*package/, 0: "preprocessor"},
+        {match: keywordsToRegex(
+            "break default func interface select case defer go map struct chan else goto package switch const fallthrough if range type continue for import return var"
+        ), 0: "keyword"},
+        {match: keywordsToRegex(
+            "append bool byte cap close complex complex64 complex128 uint16 copy false float32 float64 imag int int8 int16 uint32 int32 int64 iota len make new nil panic uint64 print println real recover string true uint uint8 uintptr"
+        ), 0: "identifier"},
+        {match: keywordsToRegex(
+            "+ - * / % ++ -- == != > < >= <= && || ! & | ^ << >> = += -= *= /= %= <<= >>= &= ^= |= , . ... : ;"
+        ), 0: "variable"}
+    ]
+}
