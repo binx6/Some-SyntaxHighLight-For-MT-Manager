@@ -6,4 +6,4 @@
 
 - If it fails, try changing the extension to mts
 
-- Naming and Inspiration Originating from the work of A4-Tacks
+- Naming and Inspiration Originating from the work of [A4-Tacks](https://github.com/A4-Tacks/Rust-SyntaxHighLight-For-MT-Manager)
