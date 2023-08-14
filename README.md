@@ -1,4 +1,4 @@
-![Alt text](https://img.shields.io/badge/MT管理器-语法高亮文件-gold)
+![Alt text](https://img.shields.io/badge/MT管理器-语法高亮文件-gold) Languages : 🇺🇸 | [🇨🇳](./README.zh-CN.md) | [🇷🇺](./README.ru-RU.md) | [🇮🇸](./README.is-IS.md)
 
 - Some programming language's syntax high light for MT Manager
 
